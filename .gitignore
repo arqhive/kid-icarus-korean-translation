@@ -1,0 +1,21 @@
+# Original ROM, extracted game resources, local build history and emulators
+/rom/
+/work/
+/vendor/
+*.gba
+*.gb
+*.nes
+*.fds
+*.sav
+*.ss0
+*.ss1
+*.dll
+*.exe
+*.bin
+*.zip
+__pycache__/
+*.py[cod]
+.venv/
+.vscode/
+Thumbs.db
+.DS_Store

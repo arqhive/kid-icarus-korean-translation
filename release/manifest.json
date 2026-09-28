@@ -1,0 +1,27 @@
+{
+  "version": "v0.1",
+  "original": {
+    "file": "Famicom Mini 24 - Hikari Shinwa - Palthena no Kagami (Japan).gba",
+    "bytes": 4194304,
+    "crc32": "F311EDAC",
+    "md5": "76759e14e1a4072397c105419d702735",
+    "sha1": "cca6eb41ea8edc8115994fad2a0b329af44bb659",
+    "sha256": "7a2118c605713898a8befa0dce2835998481bcbdd92850379620450de6209e4b"
+  },
+  "patched": {
+    "file": "Palthena_KO_v0.1.gba",
+    "bytes": 8388608,
+    "crc32": "C5927F7E",
+    "md5": "bfb1040bf4ab05d4b73583d28fbe20b9",
+    "sha1": "263b8ee2a6327be1b96d0d567747390e8fd59908",
+    "sha256": "415815acb85c53e1143e304c5bcec72e46fdf213cdf294fc43083f6acc9c78ba"
+  },
+  "patch": {
+    "file": "Palthena_KO_v0.1.ips",
+    "bytes": 154495,
+    "crc32": "327CB1B6",
+    "md5": "ab02ed97629e76584168bd096e52efad",
+    "sha1": "bcd1ee0f58591b2780c7afb4b2038bbf669f7da3",
+    "sha256": "dae3d4d7924aed62fabbde650fd7173b25c58fc3c1902142629a6f70ef5e7792"
+  }
+}
