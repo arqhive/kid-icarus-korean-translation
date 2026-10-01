@@ -73,8 +73,6 @@ def main():
     modified=bytearray(original);modified[START:START+len(packed)]=packed
     patch=ips(original,modified);assert apply_ips(original,patch)==modified
     (OUT/'Palthena_Korean_Logo_v2.gba').write_bytes(modified)
-    from rom_delivery import copy_to_desktop
-    copy_to_desktop(OUT/'Palthena_Korean_Logo_v2.gba')
     (OUT/'Palthena_Korean_Logo_v2.ips').write_bytes(patch)
     (OUT/'edited_payload.bin').write_bytes(edited);(OUT/'title_nt.bin').write_bytes(nt)
     info={'title':'광신화 파르테나의 거울','artwork':'ImageGen built-in, original Japanese title as style reference','subtitle_font':'Galmuri11','compression_bytes':len(packed),'available_bytes':END-START,'new_tile_count':len(used),'remaining_tile_slots':len(free),'tile_slots':used,'original_sha256':hashlib.sha256(original).hexdigest(),'patched_sha256':hashlib.sha256(modified).hexdigest(),'roundtrip_verified':True,'ips_verified':True,**art_info}

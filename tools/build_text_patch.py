@@ -200,8 +200,6 @@ def main():
     rom[0x2ae0:0x2ae0+len(packed)]=packed
     patch=ips_extended(original,rom);assert apply_patch(original,patch)==rom
     (OUT/'Palthena_Korean_Text_v2.gba').write_bytes(rom);(OUT/'Palthena_Korean_Text_v2.ips').write_bytes(patch);(OUT/'edited_payload.bin').write_bytes(b)
-    from rom_delivery import copy_to_desktop
-    copy_to_desktop(OUT/'Palthena_Korean_Text_v2.gba')
     info={'original_sha256':hashlib.sha256(original).hexdigest(),'patched_sha256':hashlib.sha256(rom).hexdigest(),'compressed_size':len(packed),'engine_relocation':relocation,'bios_font_end':hex(a.pc),'glyphs':len(pool),'bank_sizes':list(map(len,chars)),'hooks':a.labels,'translations':changes,'ips_verified':True,'roundtrip_verified':True}
     (OUT/'build.json').write_text(json.dumps(info,ensure_ascii=False,indent=2),encoding='utf-8');shutil.copyfile(FONTS/'Galmuri-OFL.md',OUT/'Galmuri-OFL.md')
     print('Built',len(rom),len(packed),'BIOS end',hex(a.pc),flush=True)

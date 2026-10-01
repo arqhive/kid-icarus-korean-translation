@@ -93,7 +93,7 @@ python tools/make_patch.py
 ```
 
 완성 ROM은 `work/build/final/Palthena_KO_v0.1.gba`에 생성됩니다.
-각 ROM 빌드 단계는 실제 바탕화면에도 같은 파일명으로 사본을 복사하고 해시를 확인합니다.
+최종 ROM 한 개만 실제 바탕화면에 같은 파일명으로 복사하고 해시를 확인합니다. 중간 단계 ROM은 `work/build/` 안에만 남습니다.
 최종 배포 ZIP은 `release/Palthena_KO_v0.1_Patch.zip`입니다. ZIP은 Git에서 제외하며 명령으로 재생성합니다.
 
 기존 작업 기록 없이 원본 ROM부터 빌드할 수 있습니다. 같은 입력·도구 버전에서는 같은 바이트가 생성됩니다.
