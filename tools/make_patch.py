@@ -31,7 +31,9 @@ def main():
     shutil.copyfile(patch, release / patch.name)
     manifest = dict(version=VERSION, original=source, patched=patched, patch=fingerprint(patch))
     (release / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-    files = {name: release / name for name in (patch.name, 'manifest.json', 'README_한국어.txt')}
+    # open_agb_firm per-game config: the game needs EEPROM 64k, which the ROM hash no longer selects.
+    (release / (STEM + '.ini')).write_text('[game]\r\nsaveType=eeprom_64k\r\n', encoding='ascii')
+    files = {name: release / name for name in (patch.name, 'manifest.json', 'README_한국어.txt', STEM + '.ini')}
     files.update({'LICENSE': ROOT / 'LICENSE', 'Galmuri-OFL.md': ROOT / 'fonts' / 'Galmuri-OFL.md'})
     files.update({name: ROOT / 'tools' / name for name in ('apply_patch.py', 'ips.py', 'rom_delivery.py')})
     archive = release / (STEM + '_Patch.zip')

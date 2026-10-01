@@ -10,18 +10,18 @@
   },
   "patched": {
     "file": "Palthena_KO_v0.1.gba",
-    "bytes": 8388608,
-    "crc32": "C5927F7E",
-    "md5": "bfb1040bf4ab05d4b73583d28fbe20b9",
-    "sha1": "263b8ee2a6327be1b96d0d567747390e8fd59908",
-    "sha256": "415815acb85c53e1143e304c5bcec72e46fdf213cdf294fc43083f6acc9c78ba"
+    "bytes": 4194304,
+    "crc32": "58A2AE6A",
+    "md5": "6313243111c473210de5e499d3875d99",
+    "sha1": "4d5d38522c42c218465b8314f283b6bba7505f15",
+    "sha256": "10f42479314b43db3325657a6d552530cce74a5e86bb8408d55e11abc3906d0c"
   },
   "patch": {
     "file": "Palthena_KO_v0.1.ips",
-    "bytes": 154495,
-    "crc32": "327CB1B6",
-    "md5": "ab02ed97629e76584168bd096e52efad",
-    "sha1": "bcd1ee0f58591b2780c7afb4b2038bbf669f7da3",
-    "sha256": "dae3d4d7924aed62fabbde650fd7173b25c58fc3c1902142629a6f70ef5e7792"
+    "bytes": 110830,
+    "crc32": "9421D13C",
+    "md5": "3d73fd1c9229bf8a3f98c1935b79280e",
+    "sha1": "b7c34017a3f5cc43215e0f05c8a3430446750350",
+    "sha256": "133287176008e7866a8c2d6a1c774eb31c8d744802e21bf950a1893aea4dfa33"
   }
 }
