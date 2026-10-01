@@ -11,6 +11,8 @@ from rom_delivery import copy_to_desktop
 
 from paths import WORK as HERE, FONTS, ASSETS, FINAL, STEM, MGBA
 OUT=FINAL
+ENGINE_SLOT,ENGINE_SLOT_END=0x17380,0x1bd49
+FILLER_START,FILLER_END=0x1c200,0x400000
 
 
 def main():
@@ -51,8 +53,11 @@ def main():
                 pos=tile*32+y*4+x//2;shift=(x%2)*4
                 pixel=8|(((rows[y]>>(7-x))&1)<<plane)
                 font[pos]|=pixel<<shift
-    font_rom_offset=0x400000
-    rom=bytearray(base)+bytearray(b'\xff')*(0x800000-len(base))
+    # Keep the original 4 MiB size. 0x1C200.. is filler after the EEPROM_V124
+    # library; wiping it leaves boot/title/name-entry frames identical.
+    font_rom_offset=FILLER_START
+    rom=bytearray(base)
+    assert len(rom)==len(original)==0x400000
     rom[font_rom_offset:font_rom_offset+len(font)]=font
     # Original lookup has 254 entries; preserve the following message bytes.
     struct.pack_into('<254H',rom,0x17d0,*lookup[:254])
@@ -105,10 +110,14 @@ def main():
     engine_new=bytearray(engine)
     assert struct.unpack_from('<3I',engine,0x4e0)==(0x06000bd0,0x06007700,0x84000240)
     struct.pack_into('<I',engine_new,0x4e0,0x08000000+font_rom_offset)
+    assert position<=FILLER_END
     packed=compress(engine_new)
-    engine_offset=(position+3)&~3
+    # Re-packed engine goes back into its original slot; the 0x128 pointer
+    # stays at the original 0x08017380.
+    engine_offset=ENGINE_SLOT
+    assert len(packed)<=ENGINE_SLOT_END-ENGINE_SLOT
     rom[engine_offset:engine_offset+len(packed)]=packed
-    struct.pack_into('<I',rom,0x128,0x08000000+engine_offset)
+    assert struct.unpack_from('<I',rom,0x128)[0]==0x08000000+ENGINE_SLOT
     unpacked,consumed=custom_lz(rom,engine_offset,len(engine))
     assert unpacked==engine_new and consumed==engine_offset+len(packed)
     game,_=custom_lz(rom,0x2ae0,108472)

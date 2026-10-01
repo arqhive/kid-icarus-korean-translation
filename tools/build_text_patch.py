@@ -27,7 +27,7 @@ class Asm:
             else:self.b[p:p+2]=struct.pack('<H',a)
         return bytes(self.b)
 
-from game_ko import MENU, STATUS, OVER, ENDING, DIALOGS
+from game_ko import MENU, STATUS, OVER, ENDING, DIALOGS, NAME_AFTER_LINE1
 
 
 from ips import ips_extended, apply_patch
@@ -83,7 +83,7 @@ def main():
     b[0x77e3:0x7839]=keys.ljust(0x7839-0x77e3,b'\x80')
     for off,n,s in [(0x4ac4,3,'수'),(0x4acb,5,'체력'),(0x4ad4,8,'공격력'),(0x4ae6,8,'도구'),(0x4af2,9,'신기'),(0x4b3b,8,'기록'),(0x4b44,4,'총'),(0x4b48,3,'점수'),(0x4b4b,5,'구간')]:put(off,n,s,1)
     for off,n,s in [(0x29b4,7,OVER[0]),(0x29bb,10,OVER[1]),(0x29c5,7,OVER[2]),(0x29d0,8,OVER[3])]:put(off,n,s,2)
-    for off,n,s in [(0x66ec,7,'총점'),(0x66f6,3,'총점'),(0x6704,8,'구간 - '),(0x670f,3,'보스')]:put(off,n,s,1)
+    for off,n,s in [(0x66ec,7,'총점'),(0x66f6,3,'점수'),(0x6704,8,'구간 - '),(0x670f,3,'보스')]:put(off,n,s,1)
     # Compact dialogue scripts keep their two-line control format.
     ptrs=struct.unpack_from('<14H',ORIG,0x695e)
     for i,lines in enumerate(DIALOGS):
@@ -95,6 +95,8 @@ def main():
         for j,s in enumerate(lines):
             dest=(0x20c8 if i<12 else (0x29cc if i==12 else 0x2928))+j*0x40
             raw.extend(b'\xfe'+struct.pack('<H',dest)+enc(s,4+i))
+            # Temple greetings insert the registered name ($0120, 8 tiles) after line 1.
+            if i in NAME_AFTER_LINE1 and j==0:raw.extend(b'\xfd\x08\x20\x01')
         raw.append(0xff);assert len(raw)<=end-start,(i,len(raw),end-start)
         b[start:end]=raw.ljust(end-start,b'\xff');changes.append({'offset':hex(start),'text':' / '.join(lines),'bank':4+i})
     # Ending has three fixed rows of 21 tiles.
