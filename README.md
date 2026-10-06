@@ -1,15 +1,16 @@
-# 광신화 파르테나의 거울 (GBA) 한글 패치
+# 패미컴 미니 광신화 파르테나의 거울 (GBA) 한글 패치
 
 *ファミコンミニ24 光神話 パルテナの鏡* (게임보이 어드밴스, 일본판 `FPTJ`) 비공식 한국어 팬 패치입니다.
 대사는 일본어판 원문을 기준으로 번역했습니다.
 
-**제작: arqhive** · **최신 버전: [v0.1](docs/releases/v0.1.md)**
+**제작: arqhive** · **최신 버전: [v1.0f](https://github.com/arqhive/kid-icarus-korean-translation/releases/tag/v1.0f)** (최종판)
 
 - 타이틀 로고를 원작 분위기에 맞춘 **광신화 파르테나의 거울** 로고로 바꿨습니다.
-- 이름 등록·기록 삭제·상태·구간·점수·게임 오버·엔딩 문구와 상점·신전 등의 대사 14개를 한글화했습니다.
+- 이름 등록·기록 삭제·상태·점수·게임 오버·엔딩 문구와 신전·상점·병원 등의 대사 14개를 한글화했습니다.
 - 패미컴 미니 공통 메뉴, 저장·삭제·오류·절전·통신 안내 등 일본어 메시지 블록 47개를 한글화했습니다.
-- 갈무리7·갈무리11 폰트를 사용했습니다. 게임 안 한글과 로고의 세로 흔들림을 수정했습니다.
-- ROM 크기는 원본과 같은 4 MiB를 유지합니다. 배포물은 원본에 적용하는 IPS 패치입니다.
+- 갈무리7·갈무리11 폰트를 사용했습니다. 요새의 "구간 / 보스" 표시줄은 원본처럼 위아래로 맞추려고 한 칸 높이의 작은 한글을 따로 그렸습니다.
+- 원래 영어인 문구(`PUSH START BUTTON.`, `BEST`, `NO.`, `FIN` 등)는 그대로 두었습니다.
+- ROM 크기는 원본과 같은 4 MiB입니다. 배포본은 원본에 적용하는 **IPS 패치**입니다.
 
 > Git 관리 대상에는 **게임 ROM, 게임에서 추출한 원문 대사·그래픽·스크린샷이 들어 있지 않습니다.**
 > 패치를 만들거나 적용하려면 본인이 소유한 게임에서 직접 덤프한 원본이 필요합니다.
@@ -18,56 +19,49 @@
 
 ### 준비물
 
-- 일본판 원본 GBA ROM. 아래 SHA-256과 일치해야 합니다.
-- IPS 패치 도구 또는 Python 3.11 이상.
-- 로컬 배포 폴더의 `Palthena_KO_v0.1_Patch.zip` 또는 [`Palthena_KO_v0.1.ips`](release/Palthena_KO_v0.1.ips).
+- 수정하지 않은 일본판 `Famicom Mini 24 - Hikari Shinwa - Palthena no Kagami (Japan).gba` (4,194,304바이트).
+- IPS를 적용할 수 있는 패처. 동봉한 `apply_patch.py`를 쓰려면 Python 3.11 이상이 필요합니다.
+
+| 항목 | 원본 일본판 | 패치 적용 결과 (v1.0f) |
+|---|---|---|
+| 크기 | 4,194,304 바이트 | 4,194,304 바이트 |
+| CRC32 | `F311EDAC` | `BF3DF949` |
+| MD5 | `76759e14e1a4072397c105419d702735` | `282b3a193b53732fb10a43d2914212bc` |
+| SHA-1 | `cca6eb41ea8edc8115994fad2a0b329af44bb659` | `32cd1c2b131fa39e62623515dcae05c1399719ec` |
+| SHA-256 | `7a2118c605713898a8befa0dce2835998481bcbdd92850379620450de6209e4b` | `d002667786f96b7919ecc9f4a6f39da328729e29be9f111ac8ccfa6e6d5c5173` |
 
 ### 적용 방법
 
-1. `release/Palthena_KO_v0.1_Patch.zip`을 풉니다. 현재는 로컬 배포물이며 온라인 릴리즈는 게시하지 않았습니다.
-2. 일본판 **원본** ROM에 `Palthena_KO_v0.1.ips`를 적용합니다. 이전 한글판에 덧씌우지 마세요.
-3. 결과 파일의 확인값을 아래 표와 비교하고 GBA 에뮬레이터에서 새로 부팅합니다.
+[릴리즈 페이지](https://github.com/arqhive/kid-icarus-korean-translation/releases/tag/v1.0f)에서 `FPTJ_KPatch_v1.0f.zip`을 받습니다. 아래 개발자용 빌드 절차로 직접 만들 수도 있습니다.
 
-ZIP에 포함된 Python 도구는 원본·패치·결과의 SHA-256을 자동으로 검사합니다. 압축을 푼 폴더에서 실행하세요.
+1. ZIP을 폴더째 풉니다.
+2. 일반 IPS 패처에서 `FPTJ_KPatch_v1.0f.ips`와 일본판 **원본** ROM을 선택하고 별도 결과 파일을 만듭니다. 또는 압축을 푼 폴더에서 아래 명령을 실행합니다.
+3. 만들어진 `Palthena_KO_v1.0f.gba`를 실행합니다. 이전 한글판의 강제 저장 상태(세이브 스테이트)를 불러오지 말고 ROM을 새로 실행하세요.
 
 ```powershell
-python apply_patch.py "Famicom Mini 24 - Hikari Shinwa - Palthena no Kagami (Japan).gba" "Palthena_KO_v0.1.gba"
+python apply_patch.py "Famicom Mini 24 - Hikari Shinwa - Palthena no Kagami (Japan).gba"
 ```
 
-결과 ROM은 지정한 위치에 저장하고 실제 Windows 바탕화면에도 복사합니다.
+동봉 패처는 원본·패치·결과의 SHA-256을 확인하고 원본을 보존합니다. 결과 파일 이름을 바꾸려면 원본 다음에 결과 경로를 붙입니다. 이전 한글판 위에 덧씌우지 마세요.
 자세한 방법은 [`README_한국어.txt`](release/README_한국어.txt)를 참고하세요.
-
-### 파일 확인값
-
-| 항목 | 원본 일본판 | 패치 적용 결과 (v0.1) |
-|---|---|---|
-| 크기 | 4,194,304 바이트 | 4,194,304 바이트 |
-| CRC32 | `F311EDAC` | `58A2AE6A` |
-| MD5 | `76759e14e1a4072397c105419d702735` | `6313243111c473210de5e499d3875d99` |
-| SHA-1 | `cca6eb41ea8edc8115994fad2a0b329af44bb659` | `4d5d38522c42c218465b8314f283b6bba7505f15` |
-| SHA-256 | `7a2118c605713898a8befa0dce2835998481bcbdd92850379620450de6209e4b` | `10f42479314b43db3325657a6d552530cce74a5e86bb8408d55e11abc3906d0c` |
-
-원본 파일명 예: `Famicom Mini 24 - Hikari Shinwa - Palthena no Kagami (Japan).gba`
 
 ### 실행 환경
 
-- **확인함**: 3DS open_agb_firm, Windows의 mGBA. 새 부팅, 이름 등록, 정지 화면, 게임 오버, 저장, L+R 메뉴 동작을 확인했습니다.
-- 공통 메시지 47개는 ROM에서 글자·좌표를 읽어 정적으로 검증했습니다. 메뉴 글자 영역은 120프레임 동안 픽셀 변화가 없었습니다.
-- **미확인**: 상점·신전 대사, 구간 클리어 점수 화면, 엔딩의 실제 표시, 모든 통신·저장 오류 조건, 절전 모드 해제.
+- **확인함**: 3DS open_agb_firm, Windows의 mGBA에서 처음부터 엔딩까지 플레이.
 
 ### 3DS open_agb_firm에서 쓸 때
 
 이 게임은 EEPROM 64k 세이브를 씁니다. open_agb_firm은 세이브 방식을 ROM 해시로 찾는데, 패치한 ROM은 해시가 달라 기본값(EEPROM 8k)으로 잡히고 "카트리지 오류"가 뜹니다.
-ZIP에 들어 있는 `Palthena_KO_v0.1.ini`를 SD 카드의 `/3ds/open_agb_firm/saves/`에 넣으세요. ROM 파일명이 `Palthena_KO_v0.1.gba`여야 적용됩니다.
-전에 생긴 `Palthena_KO_v0.1.sav`가 있으면 지운 뒤 실행하세요.
+ZIP에 들어 있는 `Palthena_KO_v1.0f.ini`를 SD 카드의 `/3ds/open_agb_firm/saves/`에 넣으세요. ROM 파일명이 `Palthena_KO_v1.0f.gba`여야 적용됩니다.
+전에 생긴 같은 이름의 `.sav`가 있으면 지운 뒤 실행하세요.
 
 ### 알려진 문제
 
-- 원래 영문인 그래픽(`BEST`, `NO.`, `FIN` 등)은 유지했습니다.
 - 이름 입력은 영문·숫자를 사용합니다. 한글 이름 입력은 지원하지 않습니다.
-- 기존 버전의 에뮬레이터 강제 저장 상태를 불러오면 예전 글꼴·코드가 복원될 수 있습니다. ROM을 새로 부팅하세요.
-- 공통 라이브러리의 통신 메시지는 이 게임에서 실제로 사용되지 않는 항목도 포함할 수 있습니다.
-- 파일 수준에서 확인한 일본어 표시 경로를 번역했습니다. 모든 숨겨진 실행 경로를 플레이로 확인한 것은 아닙니다.
+- 점수 화면의 "총점 / 점수"는 위아래 글자가 엇갈려 보입니다. 원본은 한 줄 높이의 가나를 바로 위아래 줄에 붙여 썼는데, 한글 한 글자는 화면 타일 두 줄을 차지해서 위 단어의 아래 절반이 다음 줄까지 내려옵니다. 그래서 두 단어의 가로 위치를 어긋나게 두었고, 아래 단어는 반 줄 아래로 보입니다. 숫자는 원래 위치 그대로입니다.
+- 요새의 "구간 / 보스" 표시줄은 한 칸 높이의 작은 한글이라 다른 글자보다 작습니다.
+- 이전 버전에서 만든 에뮬레이터 강제 저장 상태를 불러오면 예전 글꼴·코드가 그대로 복원됩니다. ROM을 새로 부팅하세요.
+- 공통 라이브러리의 통신 메시지에는 이 게임에서 실제로 쓰이지 않는 항목도 들어 있습니다.
 
 ## 개발자용: 직접 빌드
 
@@ -92,9 +86,9 @@ python tools/verify_text_v3.py
 python tools/make_patch.py
 ```
 
-완성 ROM은 `work/build/final/Palthena_KO_v0.1.gba`에 생성됩니다.
+완성 ROM은 `work/build/final/Palthena_KO_v1.0f.gba`에 생성됩니다.
 최종 ROM 한 개만 실제 바탕화면에 같은 파일명으로 복사하고 해시를 확인합니다. 중간 단계 ROM은 `work/build/` 안에만 남습니다.
-최종 배포 ZIP은 `release/Palthena_KO_v0.1_Patch.zip`입니다. ZIP은 Git에서 제외하며 명령으로 재생성합니다.
+배포 파일은 `release/FPTJ_KPatch_v1.0f.zip`과 `release/FPTJ_KPatch_v1.0f.ips`입니다. ZIP은 Git에서 제외하며 명령으로 재생성합니다.
 
 기존 작업 기록 없이 원본 ROM부터 빌드할 수 있습니다. 같은 입력·도구 버전에서는 같은 바이트가 생성됩니다.
 검증용 `assert`를 사용하므로 `python -O`나 `PYTHONOPTIMIZE`를 사용하지 마세요.
@@ -104,10 +98,11 @@ python tools/make_patch.py
 - 게임 메뉴·대사: [`translation/game_ko.py`](translation/game_ko.py).
 - GBA 공통 메뉴: [`translation/wrapper_ko.py`](translation/wrapper_ko.py). `(x, y, 문자열)`로 표시 위치를 지정합니다.
 - 제목 로고: `tools/assets/title_logo_ko.png`, 부제·타이틀 배치: `tools/build_logo_v2.py`.
+- 요새 표시줄의 작은 한글: `tools/build_text_patch.py`의 `SMALL`.
 - 표기 원칙과 입력 제한: [`translation/GLOSSARY.md`](translation/GLOSSARY.md).
 
 번역 파일에는 한국어와 표시용 영문·기호만 들어 있습니다. 일본어 원문과 비교 자료는 빌드 중 `work/build/static_kana_audit/`에 생성하며 커밋하지 않습니다.
-번역을 고친 뒤 전체 빌드와 검증을 다시 실행하세요. 문자 수·글리프 뱅크·창 크기 제한을 넘으면 빌드가 중단됩니다.
+번역을 고친 뒤 전체 빌드와 검증을 다시 실행하세요. 문자 수·글리프 뱅크·창 크기·대사 칸·NES 코드 공간 제한을 넘으면 빌드가 중단됩니다.
 공개 버전은 `VERSION`을 기준으로 합니다. 도구 이름의 `v2`, `v3`는 내부 개발 단계 이름입니다.
 
 ### 폴더 구조
@@ -120,7 +115,7 @@ fonts/             갈무리7·갈무리11 BDF, SIL OFL 라이선스
 docs/
   TECHNICAL.md     파일 구조와 한글화 방식
   releases/        릴리즈 노트 사본
-release/           IPS 패치·사용자 설명서·확인값, 생성된 ZIP
+release/           사용자 설명서·확인값 (생성된 IPS·ZIP·ini 포함)
 rom/               (git 제외) 원본 ROM
 vendor/            (git 제외) 선택적 mGBA libretro DLL
 work/              (git 제외) 빌드 결과·추출 자료·미리보기

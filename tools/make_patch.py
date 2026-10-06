@@ -5,6 +5,7 @@ import shutil
 import zipfile
 import zlib
 from paths import ROOT, ROM, ORIGINAL_SHA256, FINAL, STEM, VERSION
+RELEASE_STEM = f'FPTJ_KPatch_{VERSION}'
 from ips import apply_patch
 
 
@@ -28,19 +29,21 @@ def main():
         raise SystemExit('IPS round-trip failed.')
     release = ROOT / 'release'
     release.mkdir(exist_ok=True)
-    shutil.copyfile(patch, release / patch.name)
-    manifest = dict(version=VERSION, original=source, patched=patched, patch=fingerprint(patch))
+    # Release files are named [game code]_KPatch_[version]; the ROM keeps STEM.
+    shipped = release / f'{RELEASE_STEM}.ips'
+    shutil.copyfile(patch, shipped)
+    manifest = dict(version=VERSION, original=source, patched=patched, patch=fingerprint(shipped))
     (release / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     # open_agb_firm per-game config: the game needs EEPROM 64k, which the ROM hash no longer selects.
     (release / (STEM + '.ini')).write_text('[game]\r\nsaveType=eeprom_64k\r\n', encoding='ascii')
-    files = {name: release / name for name in (patch.name, 'manifest.json', 'README_한국어.txt', STEM + '.ini')}
+    files = {name: release / name for name in (shipped.name, 'manifest.json', 'README_한국어.txt', STEM + '.ini')}
     files.update({'LICENSE': ROOT / 'LICENSE', 'Galmuri-OFL.md': ROOT / 'fonts' / 'Galmuri-OFL.md'})
     files.update({name: ROOT / 'tools' / name for name in ('apply_patch.py', 'ips.py', 'rom_delivery.py')})
-    archive = release / (STEM + '_Patch.zip')
+    archive = release / f'{RELEASE_STEM}.zip'
     # Fixed timestamps and ordering make repeated packaging deterministic.
     with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as out:
         for name, path in sorted(files.items()):
-            entry = zipfile.ZipInfo(name, date_time=(2026, 9, 29, 0, 0, 0))
+            entry = zipfile.ZipInfo(name, date_time=(2026, 10, 7, 0, 0, 0))
             entry.compress_type = zipfile.ZIP_DEFLATED
             out.writestr(entry, path.read_bytes())
     print(f'Packaged {VERSION}: {archive}')
