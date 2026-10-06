@@ -133,17 +133,19 @@ def main():
     assert hashlib.sha256(rom).hexdigest() == build['patched_sha256']
     # Check encoded replacement strings in the actual decompressed ROM as well
     # as the build manifest; importing the builder does not execute its main().
-    from build_text_patch import MENU, STATUS, OVER, ENDING, DIALOGS
+    from build_text_patch import MENU, STATUS, OVER, ENDING, DIALOGS, status_order, HUD_GU, HUD_GAN
     banks=[MENU,STATUS,OVER,ENDING]+DIALOGS
     maps=[]
     for n,bank in enumerate(banks):
         chars=list(dict.fromkeys(c for s in bank for c in s if '\uac00'<=c<='\ud7a3'))
+        if n==1:chars=status_order(chars)  # see build_text_patch.py
         maps.append({c:(0x16 if n==3 else 0x30)+2*i for i,c in enumerate(chars)})
+    maps[4+12]=maps[1]  # dialog 12 shares the STATUS bank layout (see build_text_patch.py)
     checks=[]
     for row in build['translations']:
         if row['bank']=='title':continue
         at=int(row['offset'],16);bank=row['bank']
-        alphabet={str(i):i for i in range(10)}|{' ':0x12,'!':0x0e,'?':0x0a,'.':0x0d,',':0x0c,'-':0x0f}|maps[bank]
+        alphabet={str(i):i for i in range(10)}|{chr(65+i):0x16+i for i in range(26)}|{' ':0x12,'!':0x0e,'?':0x0a,'.':0x0d,',':0x0c,'-':0x0f,HUD_GU:0x10,HUD_GAN:0x11}|maps[bank]
         parts=row['text'].split(' / ')
         limit=0x6ab7 if bank>=4 else at+32
         if 4<=bank<17:limit=struct.unpack_from('<H',game,0x695e+(bank-3)*2)[0]-0x3b05
