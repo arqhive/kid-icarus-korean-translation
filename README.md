@@ -3,7 +3,7 @@
 *ファミコンミニ24 光神話 パルテナの鏡* (게임보이 어드밴스, 일본판 `FPTJ`) 비공식 한국어 팬 패치입니다.
 대사는 일본어판 원문을 기준으로 번역했습니다.
 
-**제작: arqhive** · **최신 버전: [v1.0f](https://github.com/arqhive/kid-icarus-korean-translation/releases/tag/v1.0f)** (최종판)
+**제작: arqhive** · **최신 버전: [v1.0f](https://github.com/arqhive/kid-icarus-korean-translation/releases/tag/v1.0f)** (완성판)
 
 - 타이틀 로고를 원작 분위기에 맞춘 **광신화 파르테나의 거울** 로고로 바꿨습니다.
 - 이름 등록·기록 삭제·상태·점수·게임 오버·엔딩 문구와 신전·상점·병원 등의 대사 14개를 한글화했습니다.
