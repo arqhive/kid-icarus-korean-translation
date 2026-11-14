@@ -5,6 +5,8 @@
 
 **제작: arqhive** · **최신 버전: [v1.0f](https://github.com/arqhive/kid-icarus-korean-translation/releases/tag/v1.0f)** (완성판)
 
+**소개 페이지: [arqhive 한글 패치 아카이브](https://arqhive.vercel.app/korean-translation/kid-icarus-famicom-mini)**
+
 - 타이틀 로고를 원작 분위기에 맞춘 **광신화 파르테나의 거울** 로고로 바꿨습니다.
 - 이름 등록·기록 삭제·상태·점수·게임 오버·엔딩 문구와 신전·상점·병원 등의 대사 14개를 한글화했습니다.
 - 패미컴 미니 공통 메뉴, 저장·삭제·오류·절전·통신 안내 등 일본어 메시지 블록 47개를 한글화했습니다.
